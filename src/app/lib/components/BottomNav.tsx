@@ -1,10 +1,12 @@
+'use client'
+
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faClockRotateLeft, faCoffee, faHouse, faUser} from '@fortawesome/free-solid-svg-icons'
 import Link from 'next/link'
-import {useTranslation} from '@/app/i18n'
+import {useTranslationClient} from '@/app/i18n/client'
 
-export default async function BottomNav() {
-    const {t} = await useTranslation('home')
+export default function BottomNav() {
+    const {t} = useTranslationClient('home')
 
     return (
         <nav

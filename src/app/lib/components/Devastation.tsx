@@ -1,11 +1,13 @@
+'use client'
+
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faCircleExclamation} from '@fortawesome/free-solid-svg-icons'
-import {useTranslation} from 'react-i18next'
+import {useTranslationClient} from '@/app/i18n/client'
 
 export default function Devastation({
     screen
-}: { screen: boolean } = {screen: false}): JSX.Element {
-    const {t} = useTranslation()
+}: { screen: boolean }) {
+    const {t} = useTranslationClient('home')
 
     return (
         <div
@@ -15,4 +17,8 @@ export default function Devastation({
             <p className="font-bold font-display text-lg mb-1">{t('error.message')}</p>
         </div>
     )
+}
+
+Devastation.defaultProps = {
+    screen: false
 }

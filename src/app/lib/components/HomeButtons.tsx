@@ -35,7 +35,7 @@ export function AccountButton() {
 export function PickupButton() {
     const {t} = useTranslationClient('home')
     const router = useRouter()
-    const cookies = useCookies()
+    const [cookies] = useCookies()
 
     return (
         <button className="flex justify-center items-center flex-col rounded-3xl w-full h-full
@@ -60,7 +60,7 @@ export function PickupButton() {
 export function HistoryButton() {
     const {t} = useTranslationClient('home')
     const router = useRouter()
-    const cookies = useCookies()
+    const [cookies] = useCookies()
 
     return (
         <button className="flex justify-center items-center flex-col rounded-3xl w-full h-full
