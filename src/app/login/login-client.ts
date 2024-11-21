@@ -1,9 +1,8 @@
-import {useCookies} from 'react-cookie'
 import {getLoginTarget} from '@/app/login/login-actions'
 
-export async function requireLoginClient(): Promise<void> {
-    const [cookies] = useCookies()
+export async function requireLoginClient(cookies: any): Promise<void> {
     if (!('access_token' in cookies)) {
         location.href = await getLoginTarget()
+        throw Error('pause')
     }
 }

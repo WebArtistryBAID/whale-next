@@ -14,7 +14,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
         if (search.get('error') === 'access_denied') {
             return NextResponse.redirect('/')
         }
-        return NextResponse.redirect('/login/error')
+        return NextResponse.redirect(`${process.env.HOST}/login/error`)
     }
     const r = await fetch(`${process.env.ONELOGIN_HOST}/oauth2/token`, {
         method: 'POST',
@@ -29,8 +29,9 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
         }).toString()
     })
     const json = await r.json()
+    console.log(json)
     if ('error' in json) {
-        return NextResponse.redirect('/login/error')
+        return NextResponse.redirect(`${process.env.HOST}/login/error`)
     }
     const accessToken = json['access_token']
 
@@ -79,5 +80,5 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
     (await cookies()).set('access_token', token, {
         expires: new Date(Date.now() + 86400000)
     })
-    return NextResponse.redirect('/')
+    return NextResponse.redirect(process.env.HOST!)
 }
