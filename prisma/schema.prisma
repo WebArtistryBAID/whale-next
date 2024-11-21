@@ -8,16 +8,17 @@ datasource db {
 }
 
 model User {
-  id          String   @id
+  id          String         @id
   name        String
   pinyin      String
   phone       String?
   permissions String[]
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  blocked     Boolean  @default(false)
-  points      Decimal  @default(0)
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  blocked     Boolean        @default(false)
+  points      Decimal        @default(0)
   orders      Order[]
+  logs        UserAuditLog[]
 }
 
 model Category {
@@ -113,4 +114,20 @@ model Ad {
 model SettingsItem {
   key   String @id
   value String
+}
+
+enum UserAuditLogType {
+  login
+  createOrder
+  modifyOrder
+  deleteOrder
+}
+
+model UserAuditLog {
+  id     Int              @id @default(autoincrement())
+  time   DateTime         @default(now())
+  type   UserAuditLogType
+  user   User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+  values String[]
 }
