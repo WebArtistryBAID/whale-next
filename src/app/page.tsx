@@ -1,6 +1,7 @@
 import {useTranslation} from '@/app/i18n'
 import BottomNav from './lib/components/BottomNav'
 import HomeStatus from './lib/components/HomeStatus'
+import HomeStatusWrapper from './lib/components/HomeStatus'
 import {Trans} from 'react-i18next/TransWithoutContext'
 import {AccountButton, HistoryButton, PickupButton} from './lib/components/HomeButtons'
 
@@ -20,7 +21,7 @@ export default async function PageHome() {
                     </div>
 
                     <div className="bg-white rounded-3xl shadow-md w-full">
-                        <HomeStatus/>
+                        <HomeStatusWrapper/>
                     </div>
                 </div>
                 <BottomNav/>

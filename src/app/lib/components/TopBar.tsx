@@ -3,7 +3,7 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faArrowLeft} from '@fortawesome/free-solid-svg-icons'
 import {useTranslationClient} from '@/app/i18n/client'
-import {useRouter} from 'next/navigation'
+import {useRouter} from 'nextjs-toploader/app'
 
 export default function TopBar(): JSX.Element {
     const router = useRouter()

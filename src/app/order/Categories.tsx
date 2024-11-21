@@ -2,7 +2,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faArrowLeft} from '@fortawesome/free-solid-svg-icons'
 import {Category} from '@prisma/client'
 import {ShoppingCart, useShoppingCart} from '@/app/lib/provider/shopping-cart'
-import {useRouter} from 'next/navigation'
+import {useRouter} from 'nextjs-toploader/app'
 import {useTranslationClient} from '@/app/i18n/client'
 
 export default function Categories({

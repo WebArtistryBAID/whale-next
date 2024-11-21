@@ -1,7 +1,7 @@
 import Decimal from 'decimal.js'
 import {LocalOrderedItem} from '@/app/lib/provider/shopping-cart'
 import {Order, User} from '@prisma/client'
-import {HydratedItemType, SerializableOrder, SerializableUser} from '@/app/lib/actions/data-actions'
+import {HydratedItemType, HydratedOrder, SerializableUser} from '@/app/lib/actions/data-actions'
 
 export function moneyRound(n: Decimal): Decimal {
     return n.mul(100).round().div(100)
@@ -30,7 +30,7 @@ export function serializeUser(user: User): SerializableUser {
     }
 }
 
-export function serializeOrder(order: Order | null): SerializableOrder | null {
+export function serializeOrder(order: any): HydratedOrder | null {
     if (order == null) {
         return null
     }
@@ -38,7 +38,21 @@ export function serializeOrder(order: Order | null): SerializableOrder | null {
         id: order.id,
         type: order.type,
         status: order.status,
+        user: serializeUser(order.user),
         userId: order.userId,
+        items: order.items.map((item: any) => ({
+            id: item.id,
+            itemType: serializeItemType(item.itemType),
+            itemTypeId: item.itemTypeId,
+            amount: item.amount,
+            appliedOptions: item.appliedOptions.map((option: any) => ({
+                id: option.id,
+                name: option.name,
+                priceChange: option.priceChange.toString(),
+                soldOut: option.soldOut,
+                default: option.default
+            }))
+        })),
         deliveryRoom: order.deliveryRoom,
         number: order.number,
         onSiteName: order.onSiteName,
@@ -49,7 +63,7 @@ export function serializeOrder(order: Order | null): SerializableOrder | null {
     }
 }
 
-export function serializeOrderNotNull(order: Order): SerializableOrder {
+export function serializeOrderNotNull(order: Order): HydratedOrder {
     return serializeOrder(order)!
 }
 

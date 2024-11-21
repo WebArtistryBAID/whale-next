@@ -62,10 +62,12 @@ export interface SerializableUser {
     points: string
 }
 
-export interface SerializableOrder {
+export interface HydratedOrder {
     id: number
     type: OrderType
     status: OrderStatus
+    user: SerializableUser | null
+    items: HydratedOrderedItem[]
     userId: string | null
     deliveryRoom: string | null
     number: string
@@ -76,10 +78,24 @@ export interface SerializableOrder {
     updatedAt: Date
 }
 
+export interface HydratedOrderedItem {
+    id: number
+    orderId: number
+    itemType: HydratedItemType
+    itemTypeId: number
+    appliedOptions: SerializableOptionItem[]
+    amount: number
+}
+
 export interface OrderedItemCreate {
     itemType: number
     appliedOptions: number[]
     amount: number
+}
+
+export interface OrderEstimate {
+    time: number
+    orders: number
 }
 
 export async function getItemTypes(): Promise<HydratedItemType[]> {
@@ -129,13 +145,36 @@ export async function setSettings(key: string, value: string): Promise<string> {
     return value
 }
 
-export async function getOrder(id: number): Promise<SerializableOrder | null> {
-    return serializeOrder(await prisma.order.findUnique({where: {id}}))
+export async function getOrder(id: number): Promise<HydratedOrder | null> {
+    return serializeOrder(await prisma.order.findUnique({
+        where: {id},
+        include: {
+            user: true,
+            items: {
+                include: {
+                    itemType: {include: {tags: true, category: true, options: {include: {items: true}}}},
+                    appliedOptions: true
+                }
+            }
+        }
+    }))
 }
 
-export async function getOrders(page: number): Promise<SerializableOrder[]> {
+export async function getOrders(page: number): Promise<HydratedOrder[]> {
     await requirePermission('admin.manage')
-    return (await prisma.order.findMany({skip: (page - 1) * 20, take: 20})).map(serializeOrderNotNull)
+    return (await prisma.order.findMany({
+        skip: (page - 1) * 20,
+        take: 20,
+        include: {
+            user: true,
+            items: {
+                include: {
+                    itemType: {include: {tags: true, category: true, options: {include: {items: true}}}},
+                    appliedOptions: true
+                }
+            }
+        }
+    })).map(serializeOrderNotNull)
 }
 
 export async function getTodayCupsAmount(): Promise<number> {
@@ -154,7 +193,7 @@ export async function getTodayCupsAmount(): Promise<number> {
     return result
 }
 
-export async function getOrderTimeEstimate(id: number | null = null): Promise<number> {
+export async function getOrderTimeEstimate(id: number | null = null): Promise<OrderEstimate> {
     const today = new Date()
     today.setHours(0, 0, 0, 0)
     let upwardLimit = new Date()
@@ -172,21 +211,38 @@ export async function getOrderTimeEstimate(id: number | null = null): Promise<nu
         }
     })
     let result = 0
+    let o = 0
     for (const order of orders) {
         const items = await prisma.orderedItem.findMany({where: {orderId: order.id}})
+        o++
         for (const item of items) {
             result += item.amount * 2
         }
     }
-    return result
+    return {
+        time: result,
+        orders: o
+    }
 }
 
-export async function getAllOrders(page: number): Promise<SerializableOrder[]> {
+export async function getAllOrders(page: number): Promise<HydratedOrder[]> {
     await requirePermission('admin.manage')
-    return (await prisma.order.findMany({skip: (page - 1) * 10, take: 10})).map(serializeOrderNotNull)
+    return (await prisma.order.findMany({
+        skip: (page - 1) * 10,
+        take: 10,
+        include: {
+            user: true,
+            items: {
+                include: {
+                    itemType: {include: {tags: true, category: true, options: {include: {items: true}}}},
+                    appliedOptions: true
+                }
+            }
+        }
+    })).map(serializeOrderNotNull)
 }
 
-export async function updateOrderStatus(orderId: number, status: OrderStatus | null, paid: boolean | null): Promise<SerializableOrder | null> {
+export async function updateOrderStatus(orderId: number, status: OrderStatus | null, paid: boolean | null): Promise<HydratedOrder | null> {
     await requirePermission('admin.manage')
     await prisma.userAuditLog.create({
         data: {
@@ -241,16 +297,27 @@ export async function canOrderByName(name: string): Promise<boolean> {
     return order === 0
 }
 
-export async function getTodayOrders(): Promise<SerializableOrder[]> {
+export async function getTodayOrders(): Promise<HydratedOrder[]> {
     await requirePermission('admin.manage')
     const today = new Date()
     today.setHours(0, 0, 0, 0)
     const tomorrow = new Date(today)
     tomorrow.setDate(tomorrow.getDate() + 1)
-    return (await prisma.order.findMany({where: {createdAt: {gte: today, lt: tomorrow}}})).map(serializeOrderNotNull)
+    return (await prisma.order.findMany({
+        where: {createdAt: {gte: today, lt: tomorrow}},
+        include: {
+            user: true,
+            items: {
+                include: {
+                    itemType: {include: {tags: true, category: true, options: {include: {items: true}}}},
+                    appliedOptions: true
+                }
+            }
+        }
+    })).map(serializeOrderNotNull)
 }
 
-export async function order(data: OrderCreate): Promise<SerializableOrder | null> {
+export async function order(data: OrderCreate): Promise<HydratedOrder | null> {
     const user = await getMe()
     if (user == null || user.blocked) {
         return null
@@ -358,7 +425,19 @@ export async function order(data: OrderCreate): Promise<SerializableOrder | null
     } else {
         number = (parseInt(latest.number) + 1).toString().padStart(3, '0')
     }
-    return serializeOrder(await prisma.order.update({where: {id: order.id}, data: {totalPrice, number}}))
+    return serializeOrder(await prisma.order.update({
+        where: {id: order.id},
+        include: {
+            user: true,
+            items: {
+                include: {
+                    itemType: {include: {tags: true, category: true, options: {include: {items: true}}}},
+                    appliedOptions: true
+                }
+            }
+        },
+        data: {totalPrice, number}
+    }))
 }
 
 export async function getMe(): Promise<User> {
@@ -369,7 +448,7 @@ export async function getMeCrossBoundary(): Promise<SerializableUser> {
     return serializeUser((await prisma.user.findUnique({where: {id: await me()}}))!)
 }
 
-export async function getMeCanOrder(): Promise<SerializableOrder | null> {
+export async function getMeCanOrder(): Promise<HydratedOrder | null> {
     return serializeOrder(await prisma.order.findFirst({
         where: {
             OR: [
@@ -378,6 +457,15 @@ export async function getMeCanOrder(): Promise<SerializableOrder | null> {
                 }
             ],
             paid: false
+        },
+        include: {
+            user: true,
+            items: {
+                include: {
+                    itemType: {include: {tags: true, category: true, options: {include: {items: true}}}},
+                    appliedOptions: true
+                }
+            }
         }
     }))
 }

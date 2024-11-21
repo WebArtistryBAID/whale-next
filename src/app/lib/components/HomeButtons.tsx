@@ -3,7 +3,7 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faClock, faMugHot, faUser} from '@fortawesome/free-solid-svg-icons'
 import {useTranslationClient} from '@/app/i18n/client'
-import {useRouter} from 'next/navigation'
+import {useRouter} from 'nextjs-toploader/app'
 import {requireLoginClient} from '@/app/login/login-client'
 import {useCookies} from 'react-cookie'
 

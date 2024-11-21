@@ -4,17 +4,17 @@ import {faCircleExclamation, faClock, faClose, faMugHot, faTruck} from '@fortawe
 import {useMutation, useQuery} from '@tanstack/react-query'
 import {useState} from 'react'
 import {useTranslationClient} from '@/app/i18n/client'
-import {useRouter} from 'next/navigation'
+import {useRouter} from 'nextjs-toploader/app'
 import {OrderType} from '@prisma/client'
 import {
     canFindUserByName,
     canOrderByName,
     getOrderTimeEstimate,
     HydratedOptionType,
+    HydratedOrder,
     order,
     OrderCreate,
-    OrderedItemCreate,
-    SerializableOrder
+    OrderedItemCreate
 } from '@/app/lib/actions/data-actions'
 import {useCookies} from 'react-cookie'
 import {LocalOrderedItem, useShoppingCart} from '@/app/lib/provider/shopping-cart'
@@ -40,10 +40,10 @@ export default function OrderConfirmModal({
         mutationFn: async (data: OrderCreate) => await order(data),
         onSuccess: (data) => {
             clear()
-            setCookies('current-order', (data as SerializableOrder).id, {
+            setCookies('current-order', (data as HydratedOrder).id, {
                 expires: new Date(new Date().getTime() + 1000 * 60 * 60 * 24)
             })
-            router.push(`/check/${(data as SerializableOrder).id}`)
+            router.push(`/check/${(data as HydratedOrder).id}`)
         }
     })
 
@@ -158,13 +158,13 @@ export default function OrderConfirmModal({
                   top-0 left-0 z-[60] transition-opacity duration-200 ${open ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
                  role="dialog">
                 <div
-                    className="z-[70] bg-white lg:shadow-lg lg:rounded-3xl w-full lg:w-1/2 2xl:w-1/3 h-full lg:max-h-[80%] 2xl:max-h-[50%] overflow-y-auto">
+                    className="z-[70] bg-white lg:shadow-lg lg:rounded-3xl w-full lg:w-1/2 2xl:w-1/3 max-h-full overflow-y-auto">
 
                     {orderCreate.isPending ? <Loading/> : null}
                     {orderCreate.isError ? <Devastation/> : null}
 
                     {orderCreate.isIdle
-                        ? <div>
+                        ? <div className="relative h-full">
                             <div className="p-8 pt-12 lg:p-12">
                                 <div className="flex items-center mb-5">
                                     <h1 className="text-3xl font-bold font-display flex-grow">{t('confirm.title')}</h1>
@@ -238,7 +238,7 @@ export default function OrderConfirmModal({
                                         {estimate.isPending ? t('confirm.waitLoading') : null}
                                         {estimate.data != null
                                             ? <Trans t={t} i18nKey={'confirm.waitTime'}
-                                                     count={estimate.data + getTotalItems() * 2}
+                                                     count={estimate.data.time + getTotalItems() * 2}
                                                      components={{1: <strong></strong>}}/>
                                             : null}
                                     </IconText>
@@ -262,7 +262,7 @@ export default function OrderConfirmModal({
                                 </div>
                             </div>
 
-                            <div className="fixed lg:sticky w-full bg-gray-100 bottom-0 flex">
+                            <div className="lg:sticky fixed w-full bg-gray-100 bottom-0 flex">
                                 <div className="flex-grow p-4">
                                     <p className="text-lg font-display"><Trans t={t} i18nKey="confirm.total"
                                                                                count={getTotalPrice().toString()}/></p>

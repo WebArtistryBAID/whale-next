@@ -5,7 +5,7 @@ import {faArrowLeft} from '@fortawesome/free-solid-svg-icons'
 import {useTranslationClient} from '@/app/i18n/client'
 import {useEffect, useState} from 'react'
 import {useShoppingCart} from '@/app/lib/provider/shopping-cart'
-import {useRouter} from 'next/navigation'
+import {useRouter} from 'nextjs-toploader/app'
 import {useQuery} from '@tanstack/react-query'
 import {
     getAds,
@@ -30,7 +30,6 @@ import CategoryDetail from '@/app/order/CategoryDetail'
 import Ads from '@/app/order/Ad'
 import OrderConfirmModal from '@/app/order/OrderConfirmModal'
 import TopBar from '@/app/lib/components/TopBar'
-import Image from 'next/image'
 
 export default function PageOrder() {
     const {t} = useTranslationClient('order')
@@ -132,7 +131,7 @@ export default function PageOrder() {
                         <div className="lg:w-1/2 lg:ml-3">
                             <p className="mb-3 text-lg text-red-500">{t('activeOrder.qrInfo')}</p>
                             <div className="flex justify-center items-center">
-                                <Image src="/assets/pay-qr.jpg" alt="QR code" className="w-full lg:w-72 rounded-3xl"/>
+                                <img src="/assets/pay-qr.jpg" alt="QR code" className="w-full lg:w-72 rounded-3xl"/>
                             </div>
                         </div>
                     </div>

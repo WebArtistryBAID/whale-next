@@ -2,17 +2,26 @@
 
 import {useTranslationClient} from '@/app/i18n/client'
 import {useCookies} from 'react-cookie'
-import {useRouter} from 'next/navigation'
-import {useQuery} from '@tanstack/react-query'
+import {useRouter} from 'nextjs-toploader/app'
+import {QueryClient, QueryClientProvider, useQuery} from '@tanstack/react-query'
 import {getOrder, getOrderTimeEstimate} from '@/app/lib/actions/data-actions'
-import Loading from '@/app/lib/components/Loading'
 import {Trans} from 'react-i18next/TransWithoutContext'
 import {OrderStatus, OrderType} from '@prisma/client'
 import {ReactNode} from 'react'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faCircleCheck, faHourglass, faTruck} from '@fortawesome/free-solid-svg-icons'
+import Loading from '@/app/lib/components/Loading'
+import SkipSSR from '@/app/lib/components/SkipSSR'
 
-export default function HomeStatus() {
+const client = new QueryClient()
+
+// Somehow this breaks SSR
+// Needs investigation
+export default function HomeStatusWrapper() {
+    return <SkipSSR><QueryClientProvider client={client}><HomeStatus/></QueryClientProvider></SkipSSR>
+}
+
+export function HomeStatus() {
     const {t} = useTranslationClient('home')
     const [cookies, setCookies] = useCookies()
     const router = useRouter()
@@ -33,10 +42,10 @@ export default function HomeStatus() {
     })
 
     if (orderEstimate.isPending || order.isPending) {
-        return <div className="min-w-80"><Loading/></div>
+        return <div className="w-80"><Loading/></div>
     }
     if (orderEstimate.isError || order.isError || order.data == null) {
-        setCookies('current-order', '')
+        setCookies('current-order', null)
         return <div></div>
     }
 
@@ -55,7 +64,7 @@ export default function HomeStatus() {
                     <p className="text-xs lg:text-sm">
                         <Trans
                             i18nKey={'currentOrderCard.' + order.data!.status.toString() + '_' + order.data!.type.toString()}
-                            count={orderEstimate.data} t={t}
+                            count={orderEstimate.data.time} t={t}
                             components={{1: <strong></strong>}}/>
                     </p>
                 </div>

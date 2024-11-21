@@ -4,7 +4,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faArrowLeft} from '@fortawesome/free-solid-svg-icons'
 import {useTranslation} from 'react-i18next'
 import {type ReactNode} from 'react'
-import {useRouter} from 'next/navigation'
+import {useRouter} from 'nextjs-toploader/app'
 
 export default function FullScreenDetail({title, children}: { title: string, children: ReactNode }): JSX.Element {
     const router = useRouter()
