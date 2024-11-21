@@ -7,6 +7,12 @@
     "name": "Order",
     "description": "Order w/o queues"
   },
+  "navbar": {
+    "home": "Home",
+    "order": "Order",
+    "history": "History",
+    "account": "Me"
+  },
   "history": {
     "name": "History",
     "description": "Previous orders"

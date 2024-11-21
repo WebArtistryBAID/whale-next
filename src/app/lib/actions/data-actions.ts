@@ -97,7 +97,7 @@ export async function getOrderTimeEstimate(id: number | null = null): Promise<nu
     if (id != null) {
         const order = await prisma.order.findUnique({where: {id, status: OrderStatus.waiting}})
         if (order == null) {
-            return 0
+            throw Error('No order found')
         }
         upwardLimit = order.createdAt
     }
