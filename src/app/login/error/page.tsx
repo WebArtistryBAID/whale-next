@@ -1,4 +1,3 @@
-import loginBg from './assets/login-bg.webp'
 import {useTranslation} from '@/app/i18n'
 import {redirect} from 'next/navigation'
 import {redirectToLogin} from '@/app/login/login'
@@ -7,7 +6,7 @@ export default async function PageLoginOnboarding() {
     const {t} = await useTranslation('login')
 
     return <div className="flex justify-center items-center w-screen h-screen bg-cover bg-center"
-                style={{backgroundImage: `url(${loginBg})`}}>
+                style={{backgroundImage: '/assets/login-bg.webp'}}>
         <div className="p-8 w-full h-full lg:w-1/2 xl:w-1/3 2xl:w-1/4 lg:h-auto bg-white rounded-3xl">
             <h1 className="font-display text-3xl font-bold mb-1">{t('login.title')}</h1>
             <p className="text-sm mb-5">

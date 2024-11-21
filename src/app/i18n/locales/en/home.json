@@ -1,0 +1,27 @@
+{
+  "title": "Welcome to<1 />Whale Cafe!",
+  "description": "All of your purchases aid charity causes.",
+  "backgroundText": "Whale Cafe",
+  "startOrdering": "Start Ordering",
+  "pickUp": {
+    "name": "Order",
+    "description": "Order w/o queues"
+  },
+  "history": {
+    "name": "History",
+    "description": "Previous orders"
+  },
+  "account": {
+    "name": "Account",
+    "description": "Whale membership"
+  },
+  "currentOrderCard": {
+    "name": "Current Order",
+    "waiting_pickUp_one": "Waiting for your drink, <1>~{{count}} minute remaining.</1>",
+    "waiting_pickUp_other": "Waiting for your drink, <1>~{{count}} minutes remaining.</1>",
+    "done_pickUp": "Completed! <1>Remember to pay in-person.</1>",
+    "waiting_delivery_one": "Waiting in line, <1>~{{count}} minute remaining.</1>",
+    "waiting_delivery_other": "Waiting in line, <1>~{{count}} minutes remaining.</1>",
+    "done_delivery": "Delivering your drink! <1>You will pay on delivery.</1>"
+  }
+}

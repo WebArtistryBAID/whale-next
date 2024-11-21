@@ -99,7 +99,7 @@ model Order {
   type         OrderType
   deliveryRoom String?
   user         User?         @relation(fields: [userId], references: [id])
-  userId       String
+  userId       String?
   onSiteName   String?
   paid         Boolean       @default(false)
 }

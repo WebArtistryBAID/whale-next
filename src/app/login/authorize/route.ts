@@ -67,6 +67,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
         id: user.id,
         name: user.name,
         pinyin: user.pinyin,
+        permissions: user.permissions,
         type: 'internal'
     })
         .setIssuedAt()
