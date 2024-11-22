@@ -1,0 +1,11 @@
+{
+  "title": "历史",
+  "empty": "喝些什么吗?",
+  "status": {
+    "waiting_pickUp": "正在制作...",
+    "done_pickUp": "制作完成，请取餐!",
+    "waiting_delivery": "正在制作...",
+    "done_delivery": "制作完成!"
+  },
+  "loadMore": "加载更多"
+}

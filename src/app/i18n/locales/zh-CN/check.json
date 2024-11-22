@@ -1,0 +1,43 @@
+{
+  "orderType": "订单类型",
+  "confirm": "确认",
+  "type": {
+    "pickUp": "自取",
+    "delivery": "外送"
+  },
+  "deliveryRoom": "外送房间号",
+  "estimateOrders_one": "前方排队 <1>{{count}}</1> 单",
+  "estimateOrders_other": "前方排队 <1>{{count}}</1> 单",
+  "estimateTime_one": "需要等待约 <1>{{count}}</1> 分钟",
+  "estimateTime_other": "需要等待约 <1>{{count}}</1> 分钟",
+  "waitingToStart": "12:30 将开始制作",
+  "payQR": "使用微信 (WeChat) 提前扫描二维码付款",
+  "payQRNote": "付款时请务必备注您的订单号或姓名!",
+  "status": {
+    "waiting_pickUp": "制作中",
+    "done_pickUp": "已完成",
+    "waiting_delivery": "制作中",
+    "done_delivery": "配送中",
+    "current": "(目前状态)"
+  },
+  "message": {
+    "orderNumber": "请记住您的订单号，您取餐时会需要您的订单号。",
+    "pay": "请准备好现场付款。"
+  },
+  "products": "产品",
+  "cancel": "取消订单",
+  "cancelLoading": "...",
+  "cancelFailed": "无法取消订单",
+  "cancelConfirm": "确认?",
+  "done_pickUp": "制作完成，请尽快取餐。请准备好现场付款。",
+  "done_delivery": "制作完成，正在配送中。您将会取餐时付款。",
+  "totalPrice": "应付款项",
+  "modal": {
+    "title": "查询订单",
+    "number": "您的订单号*",
+    "check": "查询",
+    "cancel": "取消",
+    "numberError": "请输入一个 3 位订单号",
+    "notFound": "订单号错误"
+  }
+}
