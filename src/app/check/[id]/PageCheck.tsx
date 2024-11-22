@@ -44,7 +44,7 @@ export function PageCheck({order}: { order: HydratedOrder }) {
 
     return (
         <div>
-            <div className="lg:hidden flex flex-col h-screen bg-accent-latte">
+            <div className="lg:hidden flex flex-col min-h-screen bg-accent-latte">
                 <div className="flex-shrink">
                     <TopBar/>
                 </div>

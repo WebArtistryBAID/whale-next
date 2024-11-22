@@ -33,7 +33,9 @@ export default function RootLayout({
         <body
             className={`${lora.variable} ${notoSans.variable} antialiased`}
         >
-        <NextTopLoader/>
+        <NextTopLoader
+            showSpinner={false}
+            color="#f6894f"/>
         {children}
         </body>
         </html>
