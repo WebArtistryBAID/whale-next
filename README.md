@@ -18,7 +18,7 @@ To run in development:
 
 * Clone this repository.
 * Run
-  [WebArtistryBAID](https://github.com/WebArtistryBAID)/[**baid-onelogin
+  [WebArtistryBAID](https://github.com/WebArtistryBAID)/ [**baid-onelogin
   **](https://github.com/WebArtistryBAID/baid-onelogin)
   and create an OAuth2 app. Set `http://your-host/login/authorize`
   as a redirect URI. Allow the scopes `basic`, `phone`, and `sms`.
