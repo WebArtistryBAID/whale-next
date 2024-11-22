@@ -2,9 +2,10 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faClose} from '@fortawesome/free-solid-svg-icons'
 import {useEffect, useState} from 'react'
 import Decimal from 'decimal.js'
-import {getUploadServePath, HydratedItemType, HydratedOptionType} from '@/app/lib/actions/data-actions'
+import {getUploadServePath} from '@/app/lib/actions/data-actions'
 import {useShoppingCart} from '@/app/lib/provider/shopping-cart'
 import {useTranslationClient} from '@/app/i18n/client'
+import {HydratedItemType, HydratedOptionType} from '@/app/lib/actions/types'
 
 function shouldUseWhiteText(hexColor: string): boolean {
     const hexToDecimal = (hex: string): number => parseInt(hex, 16)

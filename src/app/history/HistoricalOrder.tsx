@@ -1,7 +1,8 @@
-import {getUploadServePath, HydratedOrder} from '@/app/lib/actions/data-actions'
+import {getUploadServePath} from '@/app/lib/actions/data-actions'
 import {useTranslationClient} from '@/app/i18n/client'
 import {useRouter} from 'nextjs-toploader/app'
 import {useEffect, useState} from 'react'
+import {HydratedOrder} from '@/app/lib/actions/types'
 
 export default function HistoricalOrder({order}: { order: HydratedOrder }): JSX.Element {
     const {t} = useTranslationClient('history')

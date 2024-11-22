@@ -1,9 +1,10 @@
 import {useQuery} from '@tanstack/react-query'
 import {Category} from '@prisma/client'
-import {getItemTypesByCategory, HydratedItemType} from '@/app/lib/actions/data-actions'
+import {getItemTypesByCategory} from '@/app/lib/actions/data-actions'
 import Devastation from '@/app/lib/components/Devastation'
 import Loading from '@/app/lib/components/Loading'
 import ItemTypeDetail from '@/app/order/ItemTypeDetail'
+import {HydratedItemType} from '@/app/lib/actions/types'
 
 export default function CategoryDetail({
     category,

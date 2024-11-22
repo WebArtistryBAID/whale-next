@@ -1,7 +1,7 @@
 import Decimal from 'decimal.js'
 import {LocalOrderedItem} from '@/app/lib/provider/shopping-cart'
 import {Order, User} from '@prisma/client'
-import {HydratedItemType, HydratedOrder, SerializableUser} from '@/app/lib/actions/data-actions'
+import {HydratedItemType, HydratedOrder, SerializableUser} from '@/app/lib/actions/types'
 
 export function moneyRound(n: Decimal): Decimal {
     return n.mul(100).round().div(100)

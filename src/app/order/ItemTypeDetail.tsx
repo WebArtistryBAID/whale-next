@@ -1,8 +1,9 @@
 import Decimal from 'decimal.js'
 import {useTranslationClient} from '@/app/i18n/client'
 import {useEffect, useState} from 'react'
-import {getUploadServePath, HydratedItemType} from '@/app/lib/actions/data-actions'
+import {getUploadServePath} from '@/app/lib/actions/data-actions'
 import {moneyRound} from '@/app/lib/utils'
+import {HydratedItemType} from '@/app/lib/actions/types'
 
 export default function ItemTypeDetail({
     item,

@@ -2,7 +2,7 @@
 
 import {useTranslationClient} from '@/app/i18n/client'
 import {QueryClient, QueryClientProvider, useInfiniteQuery} from '@tanstack/react-query'
-import {getMyOrders, HydratedOrder, Paginated} from '@/app/lib/actions/data-actions'
+import {getMyOrders} from '@/app/lib/actions/data-actions'
 import {useCookies} from 'react-cookie'
 import {Fragment, useEffect} from 'react'
 import {requireLoginClient} from '@/app/login/login-client'
@@ -12,6 +12,7 @@ import HistoricalOrder from '@/app/history/HistoricalOrder'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faMugSaucer, faSpinner} from '@fortawesome/free-solid-svg-icons'
 import BottomNav from '@/app/lib/components/BottomNav'
+import {HydratedOrder, Paginated} from '@/app/lib/actions/types'
 
 const client = new QueryClient()
 
@@ -66,7 +67,7 @@ function PageHistoryData({initialData}: { initialData: Paginated<HydratedOrder> 
                     {query.data.pages.map((page, i) => (
                         <Fragment key={i}>
                             {(page != null && !('detail' in page))
-                                ? page.items.map((order, index) => (
+                                ? page.items.map((order: any, index: any) => (
                                     <HistoricalOrder order={order} key={index}/>
                                 ))
                                 : null}
@@ -96,7 +97,7 @@ function PageHistoryData({initialData}: { initialData: Paginated<HydratedOrder> 
                             {query.data.pages.map((page, i) => (
                                 <Fragment key={i}>
                                     {(page != null && !('detail' in page))
-                                        ? page.items.map((order, index) => (
+                                        ? page.items.map((order: any, index: any) => (
                                             <HistoricalOrder order={order} key={index}/>
                                         ))
                                         : null}

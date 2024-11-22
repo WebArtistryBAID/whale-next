@@ -13,8 +13,7 @@ import {
     getMeCanOrder,
     getMeCrossBoundary,
     getSettings,
-    getTodayCupsAmount,
-    HydratedItemType
+    getTodayCupsAmount
 } from '@/app/lib/actions/data-actions'
 import {requireLoginClient} from '@/app/login/login-client'
 import {useCookies} from 'react-cookie'
@@ -30,6 +29,7 @@ import CategoryDetail from '@/app/order/CategoryDetail'
 import Ads from '@/app/order/Ad'
 import OrderConfirmModal from '@/app/order/OrderConfirmModal'
 import TopBar from '@/app/lib/components/TopBar'
+import {HydratedItemType} from '@/app/lib/actions/types'
 
 export default function PageOrder() {
     const {t} = useTranslationClient('order')

@@ -5,7 +5,7 @@ import {QueryClient, QueryClientProvider, useQuery} from '@tanstack/react-query'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faCircleCheck, faHourglass, faTriangleExclamation, faTruck} from '@fortawesome/free-solid-svg-icons'
 import {faCircleCheck as faCircleCheckR, faHourglass as faHourglassR} from '@fortawesome/free-regular-svg-icons'
-import {getOrderTimeEstimate, HydratedOrder, HydratedOrderedItem} from '@/app/lib/actions/data-actions'
+import {getOrderTimeEstimate} from '@/app/lib/actions/data-actions'
 import {useState} from 'react'
 import {useTranslationClient} from '@/app/i18n/client'
 import Loading from '@/app/lib/components/Loading'
@@ -14,6 +14,7 @@ import TopBar from '@/app/lib/components/TopBar'
 import {OrderStatus, OrderType} from '@prisma/client'
 import IconText from '@/app/lib/components/IconText'
 import OrderedItemDetail from '@/app/order/OrderedItem'
+import {HydratedOrder, HydratedOrderedItem} from '@/app/lib/actions/types'
 
 const client = new QueryClient()
 

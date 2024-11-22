@@ -6,22 +6,14 @@ import {useState} from 'react'
 import {useTranslationClient} from '@/app/i18n/client'
 import {useRouter} from 'nextjs-toploader/app'
 import {OrderType} from '@prisma/client'
-import {
-    canFindUserByName,
-    canOrderByName,
-    getOrderTimeEstimate,
-    HydratedOptionType,
-    HydratedOrder,
-    order,
-    OrderCreate,
-    OrderedItemCreate
-} from '@/app/lib/actions/data-actions'
+import {canFindUserByName, canOrderByName, getOrderTimeEstimate, order} from '@/app/lib/actions/data-actions'
 import {useCookies} from 'react-cookie'
 import {LocalOrderedItem, useShoppingCart} from '@/app/lib/provider/shopping-cart'
 import Loading from '@/app/lib/components/Loading'
 import Devastation from '@/app/lib/components/Devastation'
 import IconText from '@/app/lib/components/IconText'
 import OrderedItemDetail from './OrderedItem'
+import {HydratedOptionType, HydratedOrder, OrderCreate, OrderedItemCreate} from '@/app/lib/actions/types'
 
 export default function OrderConfirmModal({
     open,

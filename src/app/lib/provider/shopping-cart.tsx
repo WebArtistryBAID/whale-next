@@ -2,7 +2,7 @@
 
 import {createContext, type ReactNode, useContext, useState} from 'react'
 import Decimal from 'decimal.js'
-import {HydratedItemType, SerializableOptionItem} from '@/app/lib/actions/data-actions'
+import {HydratedItemType, SerializableOptionItem} from '@/app/lib/actions/types'
 
 export interface LocalOrderedItem {
     id: number
