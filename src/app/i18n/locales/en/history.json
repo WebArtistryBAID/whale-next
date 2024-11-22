@@ -1,0 +1,11 @@
+{
+  "title": "History",
+  "empty": "Fancy a drink?",
+  "status": {
+    "waiting_pickUp": "Making your drink...",
+    "done_pickUp": "Ready to pick up!",
+    "waiting_delivery": "Making your drink...",
+    "done_delivery": "Delivering!"
+  },
+  "loadMore": "Load More"
+}

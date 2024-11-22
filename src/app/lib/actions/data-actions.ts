@@ -98,6 +98,12 @@ export interface OrderEstimate {
     orders: number
 }
 
+export interface Paginated<T> {
+    items: T[]
+    page: number
+    pages: number
+}
+
 export async function getItemTypes(): Promise<HydratedItemType[]> {
     return (await prisma.itemType.findMany({
         include: {
@@ -160,21 +166,27 @@ export async function getOrder(id: number): Promise<HydratedOrder | null> {
     }))
 }
 
-export async function getOrders(page: number): Promise<HydratedOrder[]> {
-    await requirePermission('admin.manage')
-    return (await prisma.order.findMany({
-        skip: (page - 1) * 20,
-        take: 20,
-        include: {
-            user: true,
-            items: {
-                include: {
-                    itemType: {include: {tags: true, category: true, options: {include: {items: true}}}},
-                    appliedOptions: true
+export async function getMyOrders(page: number): Promise<Paginated<HydratedOrder>> {
+    return {
+        items: (await prisma.order.findMany({
+            skip: (page - 1) * 20,
+            take: 20,
+            where: {
+                userId: await me()
+            },
+            include: {
+                user: true,
+                items: {
+                    include: {
+                        itemType: {include: {tags: true, category: true, options: {include: {items: true}}}},
+                        appliedOptions: true
+                    }
                 }
             }
-        }
-    })).map(serializeOrderNotNull)
+        })).map(serializeOrderNotNull),
+        pages: Math.ceil(await prisma.order.count({where: {userId: await me()}}) / 20),
+        page
+    }
 }
 
 export async function getTodayCupsAmount(): Promise<number> {
@@ -225,21 +237,25 @@ export async function getOrderTimeEstimate(id: number | null = null): Promise<Or
     }
 }
 
-export async function getAllOrders(page: number): Promise<HydratedOrder[]> {
+export async function getAllOrders(page: number): Promise<Paginated<HydratedOrder>> {
     await requirePermission('admin.manage')
-    return (await prisma.order.findMany({
-        skip: (page - 1) * 10,
-        take: 10,
-        include: {
-            user: true,
-            items: {
-                include: {
-                    itemType: {include: {tags: true, category: true, options: {include: {items: true}}}},
-                    appliedOptions: true
+    return {
+        items: (await prisma.order.findMany({
+            skip: (page - 1) * 10,
+            take: 10,
+            include: {
+                user: true,
+                items: {
+                    include: {
+                        itemType: {include: {tags: true, category: true, options: {include: {items: true}}}},
+                        appliedOptions: true
+                    }
                 }
             }
-        }
-    })).map(serializeOrderNotNull)
+        })).map(serializeOrderNotNull),
+        pages: Math.ceil(await prisma.order.count() / 10),
+        page
+    }
 }
 
 export async function updateOrderStatus(orderId: number, status: OrderStatus | null, paid: boolean | null): Promise<HydratedOrder | null> {

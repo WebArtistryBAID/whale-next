@@ -67,7 +67,7 @@ export function HistoryButton() {
                             px-3 py-5 bg-white hover:bg-gray-100 transition-colors duration-100"
                 onClick={async () => {
                     await requireLoginClient(cookies)
-                    router.push('/account')
+                    router.push('/history')
                 }}>
             <FontAwesomeIcon icon={faClock} className="text-accent-orange mb-3 text-5xl"/>
 
