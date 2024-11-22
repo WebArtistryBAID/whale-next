@@ -187,7 +187,16 @@ export async function updateOrderStatus(orderId: number, status: OrderStatus | n
     })
     return serializeOrder(await prisma.order.update({
         where: {id: orderId},
-        data: {status: status ?? undefined, paid: paid ?? undefined}
+        data: {status: status ?? undefined, paid: paid ?? undefined},
+        include: {
+            user: true,
+            items: {
+                include: {
+                    itemType: {include: {tags: true, category: true, options: {include: {items: true}}}},
+                    appliedOptions: true
+                }
+            }
+        }
     }))
 }
 

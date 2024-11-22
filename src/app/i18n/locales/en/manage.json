@@ -1,0 +1,41 @@
+{
+  "title": "Whale Cafe: Process Orders",
+  "unselected": "Select an order to get started",
+  "noOrders": "No orders yet for today!",
+  "noOrdersAll": "No orders yet",
+  "noOrdersUnpaid": "Everyone paid already!",
+  "updateStatus": "Update Order Status",
+  "updatePaid": "Update Payment Status",
+  "notPaid": "Not Paid",
+  "paid": "Paid",
+  "amountCharge": "Amount to Charge",
+  "orderTime": "Client Waited For",
+  "orderBy": "Ordered By",
+  "onSite": "On Site",
+  "orderType": "Order Type",
+  "orderedOn": "Ordered On",
+  "deliveryRoom": "Delivery Room",
+  "itemOrdered": "Items Ordered",
+  "shopOpen": "Ready for Ordering",
+  "totalQuota": "Max. # of Cups",
+  "shopClosed": "Ordering Closed",
+  "toggleShopOpen": "Enable Ordering",
+  "toggleShopClose": "Disable Ordering",
+  "done": "Done!",
+  "today": "Today",
+  "all": "All",
+  "unpaid": "Unpaid",
+  "status": {
+    "waiting_pickUp": "Waiting",
+    "done_pickUp": "Done",
+    "waiting_delivery": "Waiting",
+    "done_delivery": "Delivering",
+    "current": "(Current Status)"
+  },
+  "type": {
+    "pickUp": "Pick Up",
+    "delivery": "Delivery"
+  },
+  "cancel": "Cancel",
+  "confirm": "Confirm?"
+}

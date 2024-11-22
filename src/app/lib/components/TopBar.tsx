@@ -5,7 +5,7 @@ import {faArrowLeft} from '@fortawesome/free-solid-svg-icons'
 import {useTranslationClient} from '@/app/i18n/client'
 import {useRouter} from 'nextjs-toploader/app'
 
-export default function TopBar(): JSX.Element {
+export default function TopBar() {
     const router = useRouter()
     const {t} = useTranslationClient('home')
 

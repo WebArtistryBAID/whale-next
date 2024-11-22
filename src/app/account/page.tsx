@@ -80,13 +80,13 @@ export default async function PageAccount() {
                                     </If>
                                     <If condition={me.permissions.includes('admin.manage')}>
                                         <Link href="/manage"
-                                              className="text-center blockrounded-full w-48 py-2 px-5 bg-accent-yellow-bg hover:bg-accent-orange-bg transition-colors duration-100 mb-3 block">{t('orderManagement')}</Link>
+                                              className="text-center block rounded-full w-48 py-2 px-5 bg-accent-yellow-bg hover:bg-accent-orange-bg transition-colors duration-100 mb-3 block">{t('orderManagement')}</Link>
                                     </If>
                                     <If condition={me.permissions.includes('admin.cms')}>
                                         <Link href="/admin"
                                               className="block rounded-full w-48 py-2 px-5 bg-accent-yellow-bg hover:bg-accent-orange-bg transition-colors duration-100 mb-3 text-center">{t('contentManagement')}</Link>
                                         <Link href="/stats"
-                                              className="rounded-full w-48 py-2 px-5 bg-accent-yellow-bg hover:bg-accent-orange-bg transition-colors duration-100 mb-3">{t('statisticsManagement')}</Link>
+                                              className="block text-center rounded-full w-48 py-2 px-5 bg-accent-yellow-bg hover:bg-accent-orange-bg transition-colors duration-100 mb-3">{t('statisticsManagement')}</Link>
                                     </If>
                                 </div>
                                 <div className="lg:hidden mb-3">

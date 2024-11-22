@@ -4,7 +4,7 @@ import {useRouter} from 'nextjs-toploader/app'
 import {useEffect, useState} from 'react'
 import {HydratedOrder} from '@/app/lib/actions/types'
 
-export default function HistoricalOrder({order}: { order: HydratedOrder }): JSX.Element {
+export default function HistoricalOrder({order}: { order: HydratedOrder }) {
     const {t} = useTranslationClient('history')
     const router = useRouter()
 

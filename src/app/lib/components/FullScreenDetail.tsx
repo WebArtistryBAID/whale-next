@@ -6,7 +6,7 @@ import {useTranslation} from 'react-i18next'
 import {type ReactNode} from 'react'
 import {useRouter} from 'nextjs-toploader/app'
 
-export default function FullScreenDetail({title, children}: { title: string, children: ReactNode }): JSX.Element {
+export default function FullScreenDetail({title, children}: { title: string, children: ReactNode }) {
     const router = useRouter()
     const {t} = useTranslation()
 

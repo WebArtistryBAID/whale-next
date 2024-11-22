@@ -38,7 +38,7 @@ export function serializeOrder(order: any): HydratedOrder | null {
         id: order.id,
         type: order.type,
         status: order.status,
-        user: serializeUser(order.user),
+        user: order.user == null ? null : serializeUser(order.user),
         userId: order.userId,
         items: order.items.map((item: any) => ({
             id: item.id,

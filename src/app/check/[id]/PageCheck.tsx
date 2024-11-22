@@ -22,7 +22,7 @@ export default function PageCheckWrapper({order}: { order: HydratedOrder }) {
     return <QueryClientProvider client={client}><PageCheck order={order}/></QueryClientProvider>
 }
 
-export function PageCheck({order}: { order: HydratedOrder }): JSX.Element {
+export function PageCheck({order}: { order: HydratedOrder }) {
     const {t} = useTranslationClient('check')
     const [confirmedRemark, setConfirmedRemark] = useState(false)
 
