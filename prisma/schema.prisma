@@ -70,9 +70,9 @@ model ItemType {
 
 model OrderedItem {
   id             Int          @id @default(autoincrement())
-  order          Order        @relation(fields: [orderId], references: [id])
+  order          Order        @relation(fields: [orderId], references: [id], onDelete: Cascade)
   orderId        Int
-  itemType       ItemType     @relation(fields: [itemTypeId], references: [id])
+  itemType       ItemType     @relation(fields: [itemTypeId], references: [id], onDelete: Cascade)
   itemTypeId     Int
   appliedOptions OptionItem[]
   amount         Int
